@@ -11,7 +11,7 @@
       border: 1px solid black;
     }
     </style>
-    <h1>Stock Checker</h1>
+    <h1>Stocks to buy - my 1700 method</h1>
 </head>
 <body>
     {{stockLabels}}
@@ -19,16 +19,20 @@
     <table style="width:100%" >
         <tr>
             <th>SYMBOL</th>
-            <th>PREVIOUS CLOSE</th>
-            <th>OPEN</th>
-            <th>CURRENT</th>
+            <th>PREVIOUS CLOSE €</th>
+            <th>OPEN €</th>
+            <th>OPEN %</th>
+            <th>CURRENT €</th>
+            <th>CURRENT %</th>
         </tr>
-        {% for stock, prevClose, open, current in zipped %}
+        {% for stock, prevClose, open, current, openVsClose, openVsCurrent in zipped %}
             <tr>
                 <th>{{stock}}</th>
                 <th>{{prevClose}}</th>
                 <th>{{open}}</th>
+                <th>{{openVsClose}}</th>
                 <th>{{current}}</th>
+                <th>{{openVsCurrent}}</th>
             </tr>
         {% endfor %}
 
