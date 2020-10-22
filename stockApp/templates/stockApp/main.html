@@ -11,7 +11,7 @@
       border: 1px solid black;
     }
     </style>
-    <h1>Hi</h1>
+    <h1>Stock Checker</h1>
 </head>
 <body>
     {{stockLabels}}
@@ -19,14 +19,16 @@
     <table style="width:100%" >
         <tr>
             <th>SYMBOL</th>
+            <th>PREVIOUS CLOSE</th>
             <th>OPEN</th>
             <th>CURRENT</th>
         </tr>
-        {% for stock, current, open in zipped %}
+        {% for stock, prevClose, open, current in zipped %}
             <tr>
                 <th>{{stock}}</th>
-                <th>{{current}}</th>
+                <th>{{prevClose}}</th>
                 <th>{{open}}</th>
+                <th>{{current}}</th>
             </tr>
         {% endfor %}
 

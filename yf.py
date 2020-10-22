@@ -9,7 +9,7 @@ def ExtractStocksData():
 
     import yfinance as yf
 
-    stockLabels = ["AMD",
+    stockSymbols = ["AMD",
                    "INTC",
                    "NVDA",
                    "MX",
@@ -30,14 +30,14 @@ def ExtractStocksData():
                    "WDC",
                    "TXN"]
     # dummies
-    data_1d = [0]*len(stockLabels)
-    data_7d = [0]*len(stockLabels)
-    data_30d = [0]*len(stockLabels)
-    data_12mo = [0]*len(stockLabels)
-    current = [0]*len(stockLabels)
+    data_1d = [0]*len(stockSymbols)
+    data_7d = [0]*len(stockSymbols)
+    data_30d = [0]*len(stockSymbols)
+    data_12mo = [0]*len(stockSymbols)
+    current = [0]*len(stockSymbols)
 
     i = 0
-    for stock in stockLabels:
+    for stock in stockSymbols:
 
         data_1d[i] = yf.download(stock, period="1d")
         data_7d[i] = yf.download(stock, period="7d")
@@ -58,37 +58,40 @@ def ExtractStocksData():
 
         i += 1
 
-    return stockLabels, current, data_1d, data_7d, data_30d, data_12mo
+    return stockSymbols, current, data_1d, data_7d, data_30d, data_12mo
 
 
 def filterStocks():
     # Filter stocks
-    stockLabels, current, data_1d, data_7d, data_30d, data_12mo = ExtractStocksData()
+    stockSymbols, current, data_1d, data_7d, data_30d, data_12mo = ExtractStocksData()
 
-    filteredStockLabels = []
-    filteredCurrents = []
+    filteredSymbols = []
+    filteredPrevCloses = []
     filteredOpens = []
-    for i in range(len(stockLabels)):
+    filteredCurrents = []
+    for i in range(len(stockSymbols)):
         print("Open: ", data_1d[i]["Open"][0])
         print("Close: ", data_1d[i]["Close"][0])
-        premarket_increase_percent = (data_1d[i]["Open"][0]/data_1d[i]["Close"][0]-1)*100
-        current_percentage = (current[i]/data_1d[i]["Close"][0]-1)*100
+        premarket_up_percent = (data_1d[i]["Open"][0]/data_1d[i]["Close"][0]-1)*100
+        current_percent = (current[i]/data_1d[i]["Close"][0]-1)*100
 
-        print("premarket_increase_percent: ", premarket_increase_percent)
-        print("current_percentage: ", current_percentage)
+        print("premarket_up_percent: ", premarket_up_percent)
+        print("current_percent: ", current_percent)
 
-        if (current_percentage > premarket_increase_percent) and ((current_percentage - premarket_increase_percent) > 0.5):
-            filteredStockLabels.append(stockLabels[i])
+        if (current_percent > premarket_up_percent) and ((current_percent - premarket_up_percent) > 0.5):
+            filteredSymbols.append(stockSymbols[i])
+            filteredPrevCloses.append(data_1d[i]["Close"][0])
+            filteredOpens.append(data_1d[i]["Open"][0])
             filteredCurrents.append(current[i])
-            filteredOpens.append(premarket_increase_percent)
 
-        zipped = zip(filteredStockLabels, filteredCurrents, filteredOpens)
+        zipped = zip(filteredSymbols, filteredPrevCloses, filteredOpens,
+                     filteredCurrents)
 
     return zipped
 
 
 if __name__ == "__main__":
-    # stockLabels, current, data_1d, data_7d, data_30d, data_12mo = ExtractStocksData()
-    # print(stockLabels)
+    # stockSymbols, current, data_1d, data_7d, data_30d, data_12mo = ExtractStocksData()
+    # print(stockSymbols)
     zipped = filterStocks()
-    print(filteredStockLabels)
+    print(zipped)
