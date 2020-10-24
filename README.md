@@ -3,7 +3,9 @@ My stock checker based on Python and django.
 
 ## Requirements:
 ```bash
+pip3 install yahoo_fin
 pip3 install yfinance
+pip3 install requests_html
 pip3 install django
 ```
 
