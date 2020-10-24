@@ -10,53 +10,72 @@
 def ExtractStocksData():
 
     import yfinance as yf1
+    from multiprocessing import Process, Manager
     # import yahoo_fin.stock_info as yf2
 
     # stockSymbols = yf2.tickers_nasdaq() # Get all stocks (over 3000!)
     # print(f"Number of stocks: {len(stockSymbols)}")
-    stockSymbols = ["AMD",
-                    "INTC",
-                    "NVDA",
-                    "MX",
-                    "NXPI",
-                    "SOXX",
-                    "TSLA",
-                    "GOOG",
-                    "SPOT",
-                    "NOK",
-                    "PYPL",
-                    "ADSK",
-                    "ADBE",
-                    "ANSS",
-                    "CSCO",
-                    "DELL",
-                    "QCOM",
-                    "MSFT",
-                    "WDC",
-                    "TXN"]
+    stockSymbols = [# Technology
+                    "ATVI", "ADBE", "ADSK", "ANSS", "AMD", "CDNS", "CSCO",
+                    "DELL", "DLG.DE", "GOOG", "IBM", "INTC", "MSFT", "NOK",
+                    "NVDA", "NXPI", "SNAP", "PINS", "PYPL", "QCOM", "SOXX",
+                    "SPOT", "TXN", "WDC", "ZM",
+                    # Entertainment
+                    "DIS", "NFLX", "UBI.PA",
+                    # Services
+                    "0700.HK", "AIR.PA", "AMZN", "BABA", "EBAY", "FB", "FSLY",
+                    "FVRR", "WORK",
+                    # Consumer Goods
+                    "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "NESN.SW", "NIO",
+                    "NKE", "PAH3.DE", "PEP", "PG", "PM", "SHAK", "TSLA",
+                    "1810.HK",
+                    # Financial
+                    "BAC", "CIT", "JPM", "SLV", "V",
+                    # Basic Materials
+                    "GOLD", "NEM",
+                    # Industrial Goods
+                    "BA", "LMT", "UPS",
+                    # Healthcare
+                    "PFE"
+                    ]
 
     # stockSymbols = ["NFLX"]  # for testing
 
-    # dummies
-    data_12mo = [0]*len(stockSymbols)
-    current = [0]*len(stockSymbols)
 
-    i = 0
-    for stock in stockSymbols:
-
-        data_12mo[i] = yf1.download(stock, period="12mo")
-        # keys: ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
-        # print(max(data_12mo[i]["High"]))
+    def downloadData(data_12mo, stockSymbols, current, i):
+        # Get history data
+        data_12mo[i] = yf1.download(stockSymbols[i], period="12mo")
 
         # Get current price
-        ticker_yahoo = yf1.Ticker(stock)
+        ticker_yahoo = yf1.Ticker(stockSymbols[i])
         data = ticker_yahoo.history()
         current_ = (data.tail(1)['Close'].iloc[0])
-        print(f"Stock {stock}: current {current_}")
+        # print(f"Stock {stockSymbols[i]}: current {current_}")
 
         current[i] = current_
 
-        i += 1
+    # dummies
+    data_12mo = []
+    current = []
+
+    with Manager() as manager:
+        # stockSymbols = [# Technology
+        #                 "ATVI", "ADBE", "ADSK", "ANSS", "AMD", "CDNS", "CSCO"]
+        a = manager.list(range(len(stockSymbols)))  # <-- can be shared between processes.
+        b = manager.list(range(len(stockSymbols)))
+        processes = []
+        for i in range(len(stockSymbols)):
+            p = Process(target=downloadData, args=(a, stockSymbols,
+                                                   b, i))  # Passing the lists
+            p.start()
+            processes.append(p)
+        for p in processes:
+            p.join()
+
+        # print(a[0]["Open"][-1])
+        p.close()
+        data_12mo = list(a)
+        current = list(b)
 
     return stockSymbols, current, data_12mo
 
@@ -117,4 +136,4 @@ if __name__ == "__main__":
     # stockSymbols, current, data_12mo = ExtractStocksData()
     # print(stockSymbols)
     zipped = filterStocks()
-    print(zipped)
+    # print(zipped)
