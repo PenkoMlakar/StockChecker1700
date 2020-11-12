@@ -84,17 +84,15 @@ def filterStocks():
 
     import numpy as np
     import yfinance as yf1
+    from multiprocessing import Process, Manager
 
     # Filter stocks
     stockSymbols, current, data_12mo = ExtractStocksData()
 
-    filteredSymbols = []
-    filteredPrevCloses = []
-    filteredOpens = []
-    filteredCurrents = []
-    filteredOpenVsPrevClose = []
-    filteredOpenVsCurrent = []
-    for i in range(len(stockSymbols)):
+    def filterData(stockSymbols, current, data_12mo, filteredSymbols,
+        filteredPrevCloses, filteredOpens, filteredCurrents,
+        filteredOpenVsPrevClose, filteredOpenVsCurrent, i):
+
         print("Stock: ", stockSymbols[i])
         print("Open: ", data_12mo[i]["Open"][-1])
         print("Close: ", data_12mo[i]["Close"][-2])
@@ -123,10 +121,50 @@ def filterStocks():
             filteredOpenVsCurrent.append(
                 np.round((filteredCurrents[-1]/filteredPrevCloses[-1]-1)*100, 2))
 
+    # Dummies
+    filteredSymbols = []
+    filteredPrevCloses = []
+    filteredOpens = []
+    filteredCurrents = []
+    filteredOpenVsPrevClose = []
+    filteredOpenVsCurrent = []
 
-        zipped = zip(filteredSymbols, filteredPrevCloses, filteredOpens,
-                     filteredCurrents, filteredOpenVsPrevClose,
-                     filteredOpenVsCurrent)
+    with Manager() as manager:
+        a = manager.list(range(len(stockSymbols)))  # <-- can be shared between processes.
+        b = manager.list(range(len(stockSymbols)))
+        c = manager.list(range(len(stockSymbols)))
+        d = manager.list(range(len(stockSymbols)))
+        e = manager.list(range(len(stockSymbols)))
+        f = manager.list(range(len(stockSymbols)))
+        processes = []
+        for i in range(len(stockSymbols)):
+            p = Process(target=filterData, args=(stockSymbols, current,
+                                                 data_12mo, a, b, c, d, e, f, i))  # Passing the lists
+            p.start()
+            processes.append(p)
+        for p in processes:
+            p.join()
+
+        # print(a[0]["Open"][-1])
+        p.close()
+        filteredSymbols = list(a)
+        filteredPrevCloses = list(b)
+        filteredOpens = list(c)
+        filteredCurrents = list(d)
+        filteredOpenVsPrevClose = list(e)
+        filteredOpenVsCurrent = list(f)
+
+    # Remove obsolete integers from list
+    filteredSymbols = [x for x in filteredSymbols if not isinstance(x, int)]
+    filteredPrevCloses = [x for x in filteredPrevCloses if not isinstance(x, int)]
+    filteredOpens = [x for x in filteredOpens if not isinstance(x, int)]
+    filteredCurrents = [x for x in filteredCurrents if not isinstance(x, int)]
+    filteredOpenVsPrevClose = [x for x in filteredOpenVsPrevClose if not isinstance(x, int)]
+    filteredOpenVsCurrent = [x for x in filteredOpenVsCurrent if not isinstance(x, int)]
+
+    zipped = zip(filteredSymbols, filteredPrevCloses, filteredOpens,
+                 filteredCurrents, filteredOpenVsPrevClose,
+                 filteredOpenVsCurrent)
 
     return zipped
 
