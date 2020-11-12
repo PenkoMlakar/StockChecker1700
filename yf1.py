@@ -16,27 +16,27 @@ def ExtractStocksData():
     # stockSymbols = yf2.tickers_nasdaq() # Get all stocks (over 3000!)
     # print(f"Number of stocks: {len(stockSymbols)}")
     stockSymbols = [# Technology
-                    "ATVI", "ADBE", "ADSK", "ANSS", "AMD", "CDNS", "CSCO",
-                    "DELL", "DLG.DE", "GOOG", "IBM", "INTC", "MSFT", "NOK",
+                    "ATVI", "ADBE", "ADSK", "AMAT", "AMD", "ANSS", "CDNS", "CSCO", "DBX",
+                    "DELL", "DLG.DE", "EA", "GOOG", "IBM", "INTC", "LOGI", "MSFT", "NOK",
                     "NVDA", "NXPI", "SNAP", "PINS", "PYPL", "QCOM", "SOXX",
-                    "SPOT", "TXN", "WDC", "ZM",
+                    "SPOT", "TWTR", "TXN", "WDC", "ZM",
                     # Entertainment
                     "DIS", "NFLX", "UBI.PA",
                     # Services
-                    "0700.HK", "AIR.PA", "AMZN", "BABA", "EBAY", "FB", "FSLY",
-                    "FVRR", "WORK",
+                    "0700.HK", "AAL", "AIR.PA", "AMZN", "BABA", "DAL", "DISH", "EBAY", "ETSY", "FB", "FSLY",
+                    "FVRR", "JMIA", "LYFT", "MELI", "PTON", "ROKU", "SQ", "TTD", "UAL", "UBER", "WORK",
                     # Consumer Goods
-                    "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "NESN.SW", "NIO",
-                    "NKE", "PAH3.DE", "PEP", "PG", "PM", "SHAK", "TSLA",
-                    "1810.HK",
+                    "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "COST", "NESN.SW", "NIO",
+                    "NIU", "NKE", "PAH3.DE", "PEP", "PG", "PM", "SHAK", "SNE", "TPR", "TSLA",
+                    "1810.HK", # XI
                     # Financial
-                    "BAC", "CIT", "JPM", "SLV", "V",
+                    "BAC", "BBD", "CIT", "ITUB", "JPM", "O", "SLV", "V",
                     # Basic Materials
-                    "GOLD", "NEM",
+                    "GOLD", "NEM", "SLB", "XOM",
                     # Industrial Goods
-                    "BA", "LMT", "UPS",
+                    "BA", "LMT", "NTDOY", "RTX", "SIE.DE", "UPS",
                     # Healthcare
-                    "PFE"
+                    "GILD", "PFE", "SAN.PA"
                     ]
 
     # stockSymbols = ["NFLX"]  # for testing

@@ -4,10 +4,8 @@ from django.http import HttpResponse
 
 from yf1 import filterStocks
 
-
-
 def hi(request):
 
     zipped = filterStocks()
     return render(request, 'stockApp/main.html',
-                  context={"zipped" : zipped})
+                  context={"zipped": zipped})
