@@ -194,7 +194,7 @@ def ExtractStocksData():
                     "MMM"
                     ]
 
-    # stockSymbols = ["NFLX"]  # for testing
+    # stockSymbols = ["NFLX", "DELL"]  # for testing
 
     def downloadData(data_3d, stockSymbols, current, i):
         # Get history data
