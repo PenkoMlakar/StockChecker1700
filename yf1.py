@@ -177,18 +177,19 @@ def ExtractStocksData():
                     "IRBT", "RCL", "UA",
                     # Financial
                     "BAC", "BBD", "CIT", "ITUB", "JPM", "O", "SLV", "V",
-                    "BRK.B", "MA", "BLK", "VTI", "AGNC", "BPY", "DB", "HSBA.L",
-                    "MAIN", "OHI", "SPG", "STOR"
+                    "BRK-B", "MA", "BLK", "VTI", "AGNC", "BPY", "DB", "HSBA.L",
+                    "MAIN", "OHI", "SPG", "STOR",
                     # Basic Materials
-                    "GOLD", "NEM", "SLB", "XOM", "ENC.MC", "APD", "RDS.B",
-                    "RIO", "SAOC", "VOLV-A.ST",
+                    "GOLD", "NEM", "SLB", "XOM", "ENC.MC", "APD", "RDS-B",
+                    "RIO", "2222.SR", # SAOC
+                    "VOLV-A.ST",
                     # Industrial Goods
                     "BA", "LMT", "NTDOY", "RTX", "SIE.DE", "UPS", "NTLA",
                     "ENPH", "DHI", "ROK", "CAT", "UNP",
                     # Healthcare
                     "GILD", "PFE", "SAN.PA", "MDT", "ILMN",
                     # Utilities
-                    "NEE", "ATADL.L",
+                    "NEE", "OAOFY", #ATADL.L
                     # Coglomerates
                     "MMM"
                     ]
@@ -227,7 +228,7 @@ def ExtractStocksData():
             step = 100
             if i % step == 0 and i != 0:
                 p.join()
-            elif i >= len(stockSymbols) - (step % len(stockSymbols)):
+            elif i == len(stockSymbols) - 1:
                 print(len(stockSymbols))
                 print(i)
                 p.join()
@@ -313,7 +314,7 @@ def filterStocks():
             step = 100
             if i % step == 0 and i != 0:
                 p.join()
-            elif i >= len(stockSymbols) - (step % len(stockSymbols)):
+            elif i == len(stockSymbols) - 1:
                 print(len(stockSymbols))
                 print(i)
                 p.join()
