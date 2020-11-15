@@ -18,21 +18,23 @@
 
     <table style="width:100%" >
         <tr>
-            <th>SYMBOL</th>
-            <th>PREVIOUS CLOSE €</th>
-            <th>OPEN €</th>
-            <th>OPEN %</th>
-            <th>CURRENT €</th>
-            <th>CURRENT %</th>
+            <th><h2>SYMBOL</h2></th>
+            <th><h2>PREVIOUS CLOSE €</h2></th>
+            <th><h2>OPEN €</h2></th>
+            <th><h2>OPEN %</h2></th>
+            <th><h2>CURRENT €</h2></th>
+            <th><h2>CURRENT %</h2></th>
+            <th><h2>DIFF %</th>
         </tr>
-        {% for stock, prevClose, open, current, openVsClose, openVsCurrent in zipped %}
+        {% for stock, prevClose, open, current, openVsClosePerc, openVsCurrentPerc, diff in zipped %}
             <tr>
                 <th>{{stock}}</th>
                 <th>{{prevClose}}</th>
                 <th>{{open}}</th>
-                <th>{{openVsClose}}</th>
+                <th>{{openVsClosePerc}}</th>
                 <th>{{current}}</th>
-                <th>{{openVsCurrent}}</th>
+                <th>{{openVsCurrentPerc}}</th>
+                <th>{{diff}}</th>
             </tr>
         {% endfor %}
 

@@ -252,7 +252,8 @@ def filterStocks():
 
     def filterData(stockSymbols, current, data_3d, filteredSymbols,
                    filteredPrevCloses, filteredOpens, filteredCurrents,
-                   filteredOpenVsPrevClose, filteredOpenVsCurrent, i):
+                   filteredOpenVsPrevClosePerc, filteredOpenVsCurrentPerc,
+                   filteredOpenVsCurrentDiff, i):
 
         print("Stock: ", stockSymbols[i])
         # print("Open: ", data_3d[i]["Open"][-1])
@@ -283,18 +284,21 @@ def filterStocks():
             filteredPrevCloses.append(np.round(data_3d[i]["Close"][-2], 2))
             filteredOpens.append(np.round(data_3d[i]["Open"][-1], 2))
             filteredCurrents.append(np.round(current[i], 2))
-            filteredOpenVsPrevClose.append(
+            filteredOpenVsPrevClosePerc.append(
                 np.round((filteredOpens[-1] / filteredPrevCloses[-1] - 1) * 100, 2))
-            filteredOpenVsCurrent.append(
+            filteredOpenVsCurrentPerc.append(
                 np.round((filteredCurrents[-1] / filteredPrevCloses[-1] - 1) * 100, 2))
+            filteredOpenVsCurrentDiff.append(
+                np.round(filteredOpenVsCurrentPerc[-1] - filteredOpenVsPrevClosePerc[-1], 2))
 
     # Dummies
     filteredSymbols = []
     filteredPrevCloses = []
     filteredOpens = []
     filteredCurrents = []
-    filteredOpenVsPrevClose = []
-    filteredOpenVsCurrent = []
+    filteredOpenVsPrevClosePerc = []
+    filteredOpenVsCurrentPerc = []
+    filteredOpenVsCurrentDiff = []
 
     with Manager() as manager:
         a = manager.list(range(len(stockSymbols)))  # <-- can be shared between processes.
@@ -303,10 +307,12 @@ def filterStocks():
         d = manager.list(range(len(stockSymbols)))
         e = manager.list(range(len(stockSymbols)))
         f = manager.list(range(len(stockSymbols)))
+        g = manager.list(range(len(stockSymbols)))
         processes = []
         for i in range(len(stockSymbols)):
             p = Process(target=filterData, args=(stockSymbols, current,
-                                                 data_3d, a, b, c, d, e, f, i))  # Passing the lists
+                                                 data_3d, a, b, c, d, e, f, g,
+                                                 i))  # Passing the lists
             p.start()
 
             # Join processes at certain point, otherwise the RAM gets eaten
@@ -325,20 +331,22 @@ def filterStocks():
         filteredPrevCloses = list(b)
         filteredOpens = list(c)
         filteredCurrents = list(d)
-        filteredOpenVsPrevClose = list(e)
-        filteredOpenVsCurrent = list(f)
+        filteredOpenVsPrevClosePerc = list(e)
+        filteredOpenVsCurrentPerc = list(f)
+        filteredOpenVsCurrentDiff = list(g)
 
     # Remove obsolete integers from list
     filteredSymbols = [x for x in filteredSymbols if not isinstance(x, int)]
     filteredPrevCloses = [x for x in filteredPrevCloses if not isinstance(x, int)]
     filteredOpens = [x for x in filteredOpens if not isinstance(x, int)]
     filteredCurrents = [x for x in filteredCurrents if not isinstance(x, int)]
-    filteredOpenVsPrevClose = [x for x in filteredOpenVsPrevClose if not isinstance(x, int)]
-    filteredOpenVsCurrent = [x for x in filteredOpenVsCurrent if not isinstance(x, int)]
+    filteredOpenVsPrevClosePerc = [x for x in filteredOpenVsPrevClosePerc if not isinstance(x, int)]
+    filteredOpenVsCurrentPerc = [x for x in filteredOpenVsCurrentPerc if not isinstance(x, int)]
+    filteredOpenVsCurrentDiff = [x for x in filteredOpenVsCurrentDiff if not isinstance(x, int)]
 
     zipped = zip(filteredSymbols, filteredPrevCloses, filteredOpens,
-                 filteredCurrents, filteredOpenVsPrevClose,
-                 filteredOpenVsCurrent)
+                 filteredCurrents, filteredOpenVsPrevClosePerc,
+                 filteredOpenVsCurrentPerc, filteredOpenVsCurrentDiff)
 
     return zipped
 
