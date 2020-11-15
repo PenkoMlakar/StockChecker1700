@@ -153,27 +153,44 @@ def ExtractStocksData():
     #                  'SAMPO', 'ELISA', 'NRE1V', 'WRT1V', 'ORNAV', '0939.HK']
 
     stockSymbols = [# Technology
-                    "ATVI", "ADBE", "ADSK", "AMAT", "AMD", "ANSS", "CDNS", "CSCO", "DBX",
-                    "DELL", "DLG.DE", "EA", "GOOG", "IBM", "INTC", "LOGI", "MSFT", "NOK",
-                    "NVDA", "NXPI", "SNAP", "PINS", "PYPL", "QCOM", "SOXX",
-                    "SPOT", "TWTR", "TXN", "WDC", "ZM",
+                    "ATVI", "ADBE", "ADSK", "AMAT", "AMD", "ANSS", "CDNS",
+                    "CSCO", "DBX", "DELL", "DLG.DE", "EA", "GOOG", "IBM",
+                    "INTC", "LOGI", "MSFT", "NOK", "NVDA", "NXPI", "SNAP",
+                    "PINS", "PYPL", "QCOM", "SOXX", "SPOT", "TWTR", "TXN",
+                    "WDC", "ZM", "DOCU", "KPN.AS", "VPK.AS", "SYNA", "NET",
+                    "CRM", "FSLR", "SHOP", "HPE", "HPQ", "ASML", "AVGO", "INTU",
                     # Entertainment
                     "DIS", "NFLX", "UBI.PA",
                     # Services
-                    "0700.HK", "AAL", "AIR.PA", "AMZN", "BABA", "DAL", "DISH", "EBAY", "ETSY", "FB", "FSLY",
-                    "FVRR", "JMIA", "LYFT", "MELI", "PTON", "ROKU", "SQ", "TTD", "UAL", "UBER", "WORK",
+                    "0700.HK", "AAL", "AIR.PA", "AMZN", "BABA", "DAL",
+                    "DISH", "EBAY", "ETSY", "FB", "FSLY", "FVRR", "JMIA",
+                    "LYFT", "MELI", "PTON", "ROKU", "SQ", "TTD", "UAL", "UBER",
+                    "WORK", "AMWL", "BYND", "RYA.L", "MCD", "SBUX", "CHTR",
+                    "OKTA", "LYV", "MAR", "MNST", "OSTK", "SAVE", "SIX", "URBN",
+                    "W",
                     # Consumer Goods
-                    "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "COST", "NESN.SW", "NIO",
-                    "NIU", "NKE", "PAH3.DE", "PEP", "PG", "PM", "SHAK", "SNE", "TPR", "TSLA",
-                    "1810.HK", # XI
+                    "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "COST",
+                    "NESN.SW", "NIO", "NIU", "NKE", "PAH3.DE", "PEP", "PG",
+                    "PM", "SHAK", "SNE", "TPR", "TSLA", "1810.HK", # XI
+                    "TDOC", "GFRD.L", "PDD", "U", "MRNA", "CHWY", "WBA", "RACE",
+                    "CL", "RDSB.L", "AEO", "BILI", "BOSS.DE", "CDI.PA", "CHGG",
+                    "IRBT", "RCL", "UA",
                     # Financial
                     "BAC", "BBD", "CIT", "ITUB", "JPM", "O", "SLV", "V",
+                    "BRK.B", "MA", "BLK", "VTI", "AGNC", "BPY", "DB", "HSBA.L",
+                    "MAIN", "OHI", "SPG", "STOR"
                     # Basic Materials
-                    "GOLD", "NEM", "SLB", "XOM",
+                    "GOLD", "NEM", "SLB", "XOM", "ENC.MC", "APD", "RDS.B",
+                    "RIO", "SAOC", "VOLV-A.ST",
                     # Industrial Goods
-                    "BA", "LMT", "NTDOY", "RTX", "SIE.DE", "UPS",
+                    "BA", "LMT", "NTDOY", "RTX", "SIE.DE", "UPS", "NTLA",
+                    "ENPH", "DHI", "ROK", "CAT", "UNP",
                     # Healthcare
-                    "GILD", "PFE", "SAN.PA"
+                    "GILD", "PFE", "SAN.PA", "MDT", "ILMN",
+                    # Utilities
+                    "NEE", "ATADL.L",
+                    # Coglomerates
+                    "MMM"
                     ]
 
     # stockSymbols = ["NFLX"]  # for testing
