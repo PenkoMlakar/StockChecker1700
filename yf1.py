@@ -152,42 +152,44 @@ def ExtractStocksData():
     #                  'SSABAH', 'STEAV', 'FORTUM', 'UPM', 'NESTE', 'KNEBV',
     #                  'SAMPO', 'ELISA', 'NRE1V', 'WRT1V', 'ORNAV', '0939.HK']
 
+    # Removed non-US time stocks: GFRD.L, 1810.HK (XI), RDSB.L, SAN.PA, CDI.PA,
+    # UBI.PA, AIR.PA, ENC.MC, VOLV-A.ST, 2222.SR, (SAOC), HSBA.L, NESN.SW,
+    # PAH3.DE, BOSS.DE, KPN.AS, VPK.AS, RYA.L
     stockSymbols = [# Technology
                     "ATVI", "ADBE", "ADSK", "AMAT", "AMD", "ANSS", "CDNS",
                     "CSCO", "DBX", "DELL", "DLG.DE", "EA", "GOOG", "IBM",
                     "INTC", "LOGI", "MSFT", "NOK", "NVDA", "NXPI", "SNAP",
                     "PINS", "PYPL", "QCOM", "SOXX", "SPOT", "TWTR", "TXN",
-                    "WDC", "ZM", "DOCU", "KPN.AS", "VPK.AS", "SYNA", "NET",
+                    "WDC", "ZM", "DOCU", "SYNA", "NET",
                     "CRM", "FSLR", "SHOP", "HPE", "HPQ", "ASML", "AVGO", "INTU",
                     # Entertainment
-                    "DIS", "NFLX", "UBI.PA",
+                    "DIS", "NFLX",
                     # Services
-                    "0700.HK", "AAL", "AIR.PA", "AMZN", "BABA", "DAL",
+                    "0700.HK", "AAL", "AMZN", "BABA", "DAL",
                     "DISH", "EBAY", "ETSY", "FB", "FSLY", "FVRR", "JMIA",
                     "LYFT", "MELI", "PTON", "ROKU", "SQ", "TTD", "UAL", "UBER",
-                    "WORK", "AMWL", "BYND", "RYA.L", "MCD", "SBUX", "CHTR",
+                    "WORK", "AMWL", "BYND", "MCD", "SBUX", "CHTR",
                     "OKTA", "LYV", "MAR", "MNST", "OSTK", "SAVE", "SIX", "URBN",
                     "W",
                     # Consumer Goods
                     "AAPL", "ADS.DE", "ALXN", "AML.L", "APRN", "COST",
-                    "NESN.SW", "NIO", "NIU", "NKE", "PAH3.DE", "PEP", "PG",
-                    "PM", "SHAK", "SNE", "TPR", "TSLA", "1810.HK", # XI
-                    "TDOC", "GFRD.L", "PDD", "U", "MRNA", "CHWY", "WBA", "RACE",
-                    "CL", "RDSB.L", "AEO", "BILI", "BOSS.DE", "CDI.PA", "CHGG",
+                    "NIO", "NIU", "NKE", "PEP", "PG",
+                    "PM", "SHAK", "SNE", "TPR", "TSLA"
+                    "TDOC", "PDD", "U", "MRNA", "CHWY", "WBA", "RACE",
+                    "CL", "AEO", "BILI", "CHGG",
                     "IRBT", "RCL", "UA",
                     # Financial
                     "BAC", "BBD", "CIT", "ITUB", "JPM", "O", "SLV", "V",
-                    "BRK-B", "MA", "BLK", "VTI", "AGNC", "BPY", "DB", "HSBA.L",
+                    "BRK-B", "MA", "BLK", "VTI", "AGNC", "BPY", "DB",
                     "MAIN", "OHI", "SPG", "STOR",
                     # Basic Materials
-                    "GOLD", "NEM", "SLB", "XOM", "ENC.MC", "APD", "RDS-B",
-                    "RIO", "2222.SR", # SAOC
-                    "VOLV-A.ST",
+                    "GOLD", "NEM", "SLB", "XOM", "APD", "RDS-B",
+                    "RIO",
                     # Industrial Goods
                     "BA", "LMT", "NTDOY", "RTX", "SIE.DE", "UPS", "NTLA",
                     "ENPH", "DHI", "ROK", "CAT", "UNP",
                     # Healthcare
-                    "GILD", "PFE", "SAN.PA", "MDT", "ILMN",
+                    "GILD", "PFE", "MDT", "ILMN",
                     # Utilities
                     "NEE", "OAOFY", #ATADL.L
                     # Coglomerates
